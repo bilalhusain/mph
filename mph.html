@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>mph</title>
+<script language="javascript">
+mph = (function (){
+	var map = {0x41: "MMM", 0x42: "MMP", 0x43: "MMH", 0x44: "MPM", 0x45: "MPP", 0x46: "MPH", 0x47: "MHM", 0x48: "MHP", 0x49: "MHH", 0x4a: "PMM", 0x4b: "PMP", 0x4c: "PMH", 0x4d: "PPM", 0x4e: "PPP", 0x4f: "PPH", 0x50: "PHM", 0x51: "PHP", 0x52: "PHH", 0x53: "HMM", 0x54: "HMP", 0x55: "HMH", 0x56: "HPM", 0x57: "HPP", 0x58: "HPH", 0x59: "HHM", 0x5a: "HHP", 0x61: "mmm", 0x62: "mmp", 0x63: "mmh", 0x64: "mpm", 0x65: "mpp", 0x66: "mph", 0x67: "mhm", 0x68: "mhp", 0x69: "mhh", 0x6a: "pmm", 0x6b: "pmp", 0x6c: "pmh", 0x6d: "ppm", 0x6e: "ppp", 0x6f: "pph", 0x70: "phm", 0x71: "php", 0x72: "phh", 0x73: "hmm", 0x74: "hmp", 0x75: "hmh", 0x76: "hpm", 0x77: "hpp", 0x78: "hph", 0x79: "hhm", 0x7a: "hhp"};
+	var demap = {"MMM": "A", "MMP": "B", "MMH": "C", "MPM": "D", "MPP": "E", "MPH": "F", "MHM": "G", "MHP": "H", "MHH": "I", "PMM": "J", "PMP": "K", "PMH": "L", "PPM": "M", "PPP": "N", "PPH": "O", "PHM": "P", "PHP": "Q", "PHH": "R", "HMM": "S", "HMP": "T", "HMH": "U", "HPM": "V", "HPP": "W", "HPH": "X", "HHM": "Y", "HHP": "Z", "mmm": "a", "mmp": "b", "mmh": "c", "mpm": "d", "mpp": "e", "mph": "f", "mhm": "g", "mhp": "h", "mhh": "i", "pmm": "j", "pmp": "k", "pmh": "l", "ppm": "m", "ppp": "n", "pph": "o", "phm": "p", "php": "q", "phh": "r", "hmm": "s", "hmp": "t", "hmh": "u", "hpm": "v", "hpp": "w", "hph": "x", "hhm": "y", "hhp": "z"};
+	var header = "hhh!!!"; // nonsense magic header
+	return {
+		crypt: function () {
+			document.getElementById("stat").innerHTML = "processing";
+			document.getElementById("mph").value = "";
+
+			var t = document.getElementById("txt").value;
+			var r = header;
+			for (var i = 0; i < t.length; i++) {
+				var c = t.charCodeAt(i);
+				if ((c >= 0x41 && c <= 0x5a) || (c >= 0x61 && c <= 0x7a)) {
+					r += map[c];
+				} else {
+					r += t[i];
+				}
+			}
+
+			document.getElementById("mph").value = r;
+			document.getElementById("stat").innerHTML = "";
+	},
+		decrypt: function () {
+			document.getElementById("dstat").innerHTML = "fffffffuuuuuuuuuuuu!";
+			document.getElementById("txt").value = "";
+
+			var t = document.getElementById("mph").value;
+			if (t.indexOf(header) != 0) throw "fffffffuuuuuuuuuuuu! not mph";
+			t = t.substring(6);
+
+			var r = "";
+			for (var i = 0; i < t.length; i++) {
+				var c = t[i];
+				if ("MPH".indexOf(c.toUpperCase()) >= 0) {
+					if (i + 2 >= t.length || "MPH".indexOf(t[++i].toUpperCase()) < 0 || "MPH".indexOf(t[++i].toUpperCase()) < 0) throw "fffffffuuuuuuuuuuuu! not mph";
+					r += demap[t[i - 2] + t[i - 1] + t[i]];
+				} else {
+					r += c;
+				}
+			}
+
+			document.getElementById("txt").value = r;
+			document.getElementById("dstat").innerHTML = "";
+		}
+	};
+})();
+</script>
+</head>
+<body>
+<!-- table, problem? -->
+<table><tr><td>abc speak</td><td></td><td>mmmmmpmmh speak</td></tr><tr><td><textarea id="txt" cols="50" rows="10"></textarea></td><td><input onclick="mph.crypt()" type="submit" value="crypt -&gt;"></input><br /><input onclick="mph.decrypt()" type="submit" value="&lt;- decrypt"></input></td><td><textarea id="mph" cols="50" rows="10"></textarea></td></tr><tr><td id="dstat"></td><td></td><td id="stat"></td></tr></table>
+</body>
+</html>
