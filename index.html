@@ -51,8 +51,12 @@ mph = (function (){
 	};
 })();
 </script>
+<style type="text/css">
+#about { background-color: #F1FFF3; font-family: Sans-Serif }
+</style>
 </head>
 <body>
+<div id='about'>Welcome, reddit users. Got only <a href="http://blog.reddit.com/2011/03/reddit-mold-is-now-live.html">m, p and h</a> to speak? Well, you can transform your sentence using the utility below. Type your comment in left side textbox and click on crypt to get the 'mph' transformed text.</div>
 <!-- table, problem? -->
 <table><tr><td>abc speak</td><td></td><td>mmmmmpmmh speak</td></tr><tr><td><textarea id="txt" cols="50" rows="10"></textarea></td><td><input onclick="mph.crypt()" type="submit" value="crypt -&gt;"></input><br /><input onclick="mph.decrypt()" type="submit" value="&lt;- decrypt"></input></td><td><textarea id="mph" cols="50" rows="10"></textarea></td></tr><tr><td id="dstat"></td><td></td><td id="stat"></td></tr></table>
 </body>
